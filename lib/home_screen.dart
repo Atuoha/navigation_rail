@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool isRailVisible = true;
+  bool isExtended = false;
   int selectedIndex = 0;
 
   final List<Widget> _pages = const [
@@ -42,25 +42,29 @@ class _HomeScreenState extends State<HomeScreen> {
               onDestinationSelected: (index) => setState(() {
                 selectedIndex = index;
               }),
-              labelType: NavigationRailLabelType.selected,
+              // labelType: NavigationRailLabelType.selected,
               leading: Column(
                 children: const [
                   CircleAvatar(
                     backgroundImage: NetworkImage(
-                        'https://i.pinimg.com/564x/45/36/a5/4536a550e3323beeeee381b51c0fa43d.jpg'),
+                      'https://i.pinimg.com/564x/45/36/a5/4536a550e3323beeeee381b51c0fa43d.jpg',
+                    ),
                   ),
                   SizedBox(height: 10),
                   Text('Leo Stellas')
                 ],
               ),
+              extended: isExtended,
               selectedIconTheme: IconThemeData(
                 size: 45,
                 color: Theme.of(context).primaryColor,
               ),
               trailing: IconButton(
-                onPressed: () => {},
+                onPressed: () => setState(() {
+                  isExtended = !isExtended;
+                }),
                 icon: Icon(
-                  isRailVisible ? Icons.chevron_left : Icons.chevron_right,
+                  isExtended ? Icons.chevron_left : Icons.chevron_right,
                 ),
               ),
               destinations: const [

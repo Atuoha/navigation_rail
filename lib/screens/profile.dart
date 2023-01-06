@@ -8,9 +8,7 @@ class ProfileScreen extends StatelessWidget {
     String page = 'Profile Page';
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(page),
-      ),
+      // appBar: AppBar(title: Text(page)),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Center(
