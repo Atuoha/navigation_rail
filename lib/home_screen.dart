@@ -13,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isRailVisible = true;
   int selectedIndex = 0;
 
   final List<Widget> _pages = const [
@@ -31,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Screen'),
+        title: const Text('Welcome to NavigationRails'),
       ),
       body: Row(
         children: [
@@ -41,15 +42,27 @@ class _HomeScreenState extends State<HomeScreen> {
               onDestinationSelected: (index) => setState(() {
                 selectedIndex = index;
               }),
-              leading:Column(
+              labelType: NavigationRailLabelType.selected,
+              leading: Column(
                 children: const [
-                  CircleAvatar(backgroundImage: NetworkImage('https://i.pinimg.com/564x/45/36/a5/4536a550e3323beeeee381b51c0fa43d.jpg'),),
-                  SizedBox(height:10),
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        'https://i.pinimg.com/564x/45/36/a5/4536a550e3323beeeee381b51c0fa43d.jpg'),
+                  ),
+                  SizedBox(height: 10),
                   Text('Leo Stellas')
                 ],
               ),
-              selectedIconTheme: IconThemeData(size:45,color:Theme.of(context).primaryColor),
-
+              selectedIconTheme: IconThemeData(
+                size: 45,
+                color: Theme.of(context).primaryColor,
+              ),
+              trailing: IconButton(
+                onPressed: () => {},
+                icon: Icon(
+                  isRailVisible ? Icons.chevron_left : Icons.chevron_right,
+                ),
+              ),
               destinations: const [
                 NavigationRailDestination(
                   icon: Icon(Icons.home),
@@ -71,6 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
               selectedIndex: selectedIndex,
             ),
           ),
+          Expanded(child: _pages[selectedIndex])
         ],
       ),
     );
