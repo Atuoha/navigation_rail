@@ -5,6 +5,8 @@ import 'package:navigation_rail/screens/home.dart';
 import 'package:navigation_rail/screens/profile.dart';
 import 'package:navigation_rail/screens/settings.dart';
 
+import 'components/animated_rail.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -15,6 +17,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool isExtended = false;
   int selectedIndex = 0;
+
+
+  toggleIsExtended(){
+    setState(() {
+      isExtended = !isExtended;
+    });
+  }
 
   final List<Widget> _pages = const [
     HomeView(),
@@ -59,14 +68,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 size: 45,
                 color: Theme.of(context).primaryColor,
               ),
-              trailing: IconButton(
-                onPressed: () => setState(() {
-                  isExtended = !isExtended;
-                }),
-                icon: Icon(
-                  isExtended ? Icons.chevron_left : Icons.chevron_right,
+              trailing: AnimatedRail(
+                fnc: toggleIsExtended,
+                widget: isExtended ?Row(
+                  children: [
+                   Icon(
+                        isExtended ? Icons.chevron_left : Icons.chevron_right,
+                      ),
+                    const SizedBox(width:5),
+                    const Text('Hide', style: TextStyle(color:Colors.white),)
+                  ],
+                ):  IconButton(
+                  onPressed: () => setState(() {
+                    isExtended = !isExtended;
+                  }),
+                  icon: Icon(
+                    isExtended ? Icons.chevron_left : Icons.chevron_right,
+                  ),
                 ),
-              ),
+              ), 
               destinations: const [
                 NavigationRailDestination(
                   icon: Icon(Icons.home),
